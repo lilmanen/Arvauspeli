@@ -4,62 +4,68 @@ class Program
 {
     static void Main()
     {
-        bool jatkaPelia = true;
+        string[] liiga = { "Italia", "Englanti", "Saksa", "Ranska", "Espania" };
+        string[] mestari = { "Napoli", "Manchester City", "Bayern", "PSG", "Barcelona" };
 
-        while (jatkaPelia)
+        int maxAttempts = 3;
+        bool playAgain = true;
 
+        while (playAgain)
         {
-
-            string paakaupunki = "Vilna";
-            string guess = "";
-            int arvausLkm = 0;
-            int arvausMax = 3;
-            bool arvauksetLoppu = false;
-
-            Console.WriteLine("*** Pääkaupunkivisa ***");
-            Console.WriteLine("Mikä on Liettuan pääkaupunki?");
-            Console.WriteLine("Huom, 3 yritystä");
-            Console.WriteLine(" ");
-
-
-
-            while (guess != paakaupunki && !arvauksetLoppu)
-            {
-
-                if (arvausLkm < arvausMax)
-                {
-                    Console.Write("Arvaus: ");
-                    guess = Console.ReadLine();
-                    arvausLkm++;
-
-                }
-                else
-                {
-                    arvauksetLoppu = true;
-                    Console.WriteLine(" ");
-                    Console.WriteLine("Hävisit pelin :(");
-          
-
-                }
-                if (guess == paakaupunki)
-                Console.Write("Oikein!");
-              
-
-
-            }
+            int correctAnswers = 0;
 
             Console.WriteLine(" ");
-            Console.WriteLine("Pelataanko uudelleen? (K/E): ");
-            string response = Console.ReadLine();
-            if (response != "K")
+            Console.WriteLine("Arvaa maan jalkapalloliigan hallitseva mestari!");
+            Console.WriteLine("Sinulla on kolme yritystä per maa");
+            Console.WriteLine(" ");
+
+            for (int i = 0; i < liiga.Length; i++)
             {
-                jatkaPelia = false;
-                Console.WriteLine("Kiitos pelistä!");
+                int incorrectAttempts = 0;
+                Console.WriteLine($"{i + 1}: Kuka voitti mestaruuden maassa: {liiga[i]}?");
+
+                while (incorrectAttempts < maxAttempts)
+                {
+                    Console.Write("Arvaus ");
+                    string userGuess = Console.ReadLine();
+
+                    if (userGuess.Equals(mestari[i]))
+                    {
+                        Console.WriteLine("Oikein!");
+                        correctAnswers++;
+                        break;
+                    }
+                    else
+                    {
+                        incorrectAttempts++;
+                        Console.WriteLine($"Väärin! Sinulla on {maxAttempts - incorrectAttempts} yritystä jäljellä.");
+                    }
+                }
+
+                if (incorrectAttempts == maxAttempts)
+                {
+                    Console.WriteLine("Yritykset loppuivat.");
+                    break;
+                }
             }
 
+            if (correctAnswers == liiga.Length)
+            {
+                Console.WriteLine("Onnittelut, tiesit kaikki!");
+            }
+            else
+            {
+                Console.WriteLine("Peli päättyi liian moneen väärään vastaukseen. Haluatko kokeilla uudelleen?");
+            }
 
-            Console.ReadLine();
+            Console.Write("Pelataanko uudelleen? (K/E): ");
+            string playAgainResponse = Console.ReadLine();
+
+            if (playAgainResponse != "K")
+            {
+                playAgain = false;
+                Console.WriteLine("Kiitos ja näkemiin!");
+            }
         }
     }
-
 }
