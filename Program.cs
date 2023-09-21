@@ -29,7 +29,7 @@ class Program
                     Console.Write("Arvaus ");
                     string userGuess = Console.ReadLine();
 
-                    if (userGuess.Equals(mestari[i]))
+                    if (userGuess.Equals(mestari[i], StringComparison.OrdinalIgnoreCase))
                     {
                         Console.WriteLine("Oikein!");
                         correctAnswers++;
@@ -61,7 +61,7 @@ class Program
             Console.Write("Pelataanko uudelleen? (K/E): ");
             string playAgainResponse = Console.ReadLine();
 
-            if (playAgainResponse != "K")
+            if (playAgainResponse.ToUpper() != "K")
             {
                 playAgain = false;
                 Console.WriteLine("Kiitos ja näkemiin!");
